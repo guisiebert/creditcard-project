@@ -44,3 +44,30 @@ const expDatePattern = {
   },
 }
 const expDateMasked = IMask(expDate, expDatePattern)
+
+// Card Number
+const cardNumber = document.querySelector("#card-number")
+const cardNumberPattern = {
+  mask: [
+    {
+      mask: "0000 0000 0000 0000",
+      regex: /^4\d{0,15}/,
+      cardtype: "visa",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      regex: /(5[1-5]\d{0,2}|^22[2-9]\d|^2[3-7]\d{0,2})\d{0,12}/,
+      cardtype: "mastercard",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      cardtype: "default",
+    },
+  ],
+
+  dispatch: function (appended, dynamicMasked) {
+    const number = (dynamicMasked.value + appended).replace(/\D/g, "")
+
+    return dynamicMasked.compiledMasks
+  },
+}
